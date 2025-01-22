@@ -1,7 +1,8 @@
 {
     "name": "abdelrhman-saeed/tpo",
     "require": {
-        "abdelrhman-saeed/route": "^2.0"
+        "abdelrhman-saeed/route": "^2.0",
+        "symfony/http-client": "^5.0"
     },
     "autoload": {
         "psr-4": {

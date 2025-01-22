@@ -113,12 +113,40 @@ class TPOController
             "CityCode"              => "",
             "GuestNationality"      => "EG",
             "PreferredCurrencyCode" => "EGP",
+            "IsDetailResponse"      => true,
+            "ResponseTime"          => 23,
+            "Filters" => [
+                "MealType"      => "All",
+                "Refundable"    => "true",
+                "NoOfRooms"     => $this->request->get('rooms_number'),
+            ]
         ];
 
-        $requestData = array_merge($requestData, $this->request->request->all());
+        $incomingData = $this->request->request->all();
+        unset($incomingData['rooms_number']);
 
-        echo "<pre>";
-        print_r($requestData);
+        $paxRooms = array_map(
+            function (array $room) {
+                $room['ChildrenAges'] = explode(',', $room['ChildrenAges']);
+                return $room;
+            },
+        $incomingData['PaxRooms']);
+
+        $incomingData['PaxRooms'] = $paxRooms;
+        $requestData = array_merge($requestData, $incomingData);
+
+        $response = $this->client->request('POST', 'TBOHolidays_HotelAPI/HotelSearch', [
+            'json' => $requestData
+        ]);
+
+        $responseData = json_decode($response->getContent(), true);
+        $hotels = [];
+
+        if (! empty($responseData['HotelSearchResults'])) {
+            $hotels = $requestData['HotelSearchResults'];
+        }
+
+        require __DIR__ . '/../Views/hotelSearch.php';
     }
 
 

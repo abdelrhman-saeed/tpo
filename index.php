@@ -9,5 +9,6 @@ use Symfony\Component\HttpFoundation\{Request, Response};
 
 Route::setup(
     __DIR__ . '/src/routes',
-    Request::createFromGlobals(), new Response
+    Request::createFromGlobals(),
+    new Response
 );

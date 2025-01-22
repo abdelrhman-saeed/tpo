@@ -8,3 +8,6 @@ Route::get('TBOHolidays_HotelAPI/HotelSearch', [TPOController::class, 'hotelSear
 Route::post('TBOHolidays_HotelAPI/HotelSearch', [TPOController::class, 'hotelSearch']);
 
 Route::post('TBOHolidays_HotelAPI/AvailableHotelRooms', [TPOController::class, 'availableHotelRooms']);
+
+
+Route::post('TBOHolidays_HotelAPI/Prebook', [TPOController::class, 'preBook']);

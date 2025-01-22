@@ -63,7 +63,7 @@ class TPOController
         $hotels = [];
 
         if (! empty($responseData['HotelSearchResults'])) {
-            $hotels = $requestData['HotelSearchResults'];
+            $hotels = $responseData['HotelSearchResults'];
         }
 
         require __DIR__ . '/../Views/hotelSearch.php';

@@ -68,11 +68,11 @@
         <form id="hotelSearchForm" action="/TBOHolidays_HotelAPI/HotelSearch" method="post">
             <div>
                 <label for="checkIn">Check In</label>
-                <input type="date" id="checkIn" name="checkIn" required>
+                <input type="date" id="checkIn" name="CheckIn" required>
             </div>
             <div>
                 <label for="checkOut">Check Out</label>
-                <input type="date" id="checkOut" name="checkOut" required>
+                <input type="date" id="checkOut" name="CheckOut" required>
             </div>
             <div class="rooms_container">
                 <label for="rooms_number">Rooms Number</label>
@@ -106,16 +106,15 @@
                         <div class="room">
                             <div>
                                 <label for="adults_${i}">Adults</label>
-                                <input type="number" id="adults_${i}" name="PaxRooms[${i}]['adults']" value="0" min="0" required>
+                                <input type="number" id="adults_${i}" name="PaxRooms[${i}][Adults]" value="0" min="0" required>
                             </div>
                             <div>
                                 <label for="children_${i}">Children</label>
-                                <input type="number" id="children_${i}" name="PaxRooms[${i}]['children']" value="0" min="0" required>
+                                <input type="number" id="children_${i}" name="PaxRooms[${i}][Children]" value="0" min="0" required>
                             </div>
                             <div>
                                 <label for="children_ages_${i}">Children Ages</label>
-                                <input type="text" id="children_ages_${i}" name="PaxRooms[${i}]['children_ages'][]" placeholder="from" required>
-                                <input type="text" id="children_ages_${i}" name="PaxRooms[${i}]['children_ages'][]" placeholder="to" required>
+                                <input type="text" id="children_ages_${i}" name="PaxRooms[${i}][ChildrenAges]" required>
                             </div>
                         </div>
                     `);

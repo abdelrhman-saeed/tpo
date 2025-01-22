@@ -130,7 +130,8 @@ class TPOController
                 $room['ChildrenAges'] = explode(',', $room['ChildrenAges']);
                 return $room;
             },
-        $incomingData['PaxRooms']);
+            $incomingData['PaxRooms']
+        );
 
         $incomingData['PaxRooms'] = $paxRooms;
         $requestData = array_merge($requestData, $incomingData);
@@ -186,7 +187,18 @@ class TPOController
             $this->prebook = $content['HotelResult'];
         }
 
-        $availableRooms = $this->prebook;
+        $prebook = $this->prebook;
+        require __DIR__ . '/../Views/preBookView.php';
+    }
+
+    public function availableHotelRoomsView(): void
+    {
+        $availableRooms = $this->availableRooms;
+        require __DIR__ . '/../Views/rooms.php';
+    }
+
+    public function preBookView()
+    {
         require __DIR__ . '/../Views/preBookView.php';
     }
 }

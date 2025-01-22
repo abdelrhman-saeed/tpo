@@ -86,78 +86,28 @@
 
     <?php if (isset($availableRooms) && !empty($availableRooms)): ?>
         <div class="container py-5">
-            <h1 class="text-center mb-5">Avialable Rooms</h1>
+            <h1 class="text-center mb-5">Our Latest Products</h1>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($availableRooms as $room): ?>
                     <div class="col">
                         <div class="card h-100">
-                            <div id="carouselExampleControls<?= $room['BookingCode'] ?>" class="carousel slide" data-ride="carousel">
-                                <!-- <div class="carousel-inner">
-                            <?php foreach ($room['ImageURLs'] as $img): ?>
-                                <div class="carousel-item active">
-                                    <img class="d-block w-100" src="<?= $img ?>" alt="First slide">
-                                </div>
-                            <?php endforeach; ?>
-                        </div> -->
-                                <a class="carousel-control-prev" href="#carouselExampleControls<?= $room['BookingCode'] ?>" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls<?= $room['BookingCode'] ?>" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
+                            <img src="https://via.placeholder.com/500x200" class="card-img-top" alt="Product 1">
                             <div class="card-body">
                                 <h5 class="card-title"><?= $room['Name'][0] ?></h5>
                                 <p class="card-text"><?= $room['Inclusion'] ?></p>
                                 <p class="card-text">Total Fare: <?= $room['TotalFare'] ?></p>
                                 <form action="" method="post">
-                                    <input type="submit" class="btn btn-primary" value="Book Now"></input>
+                                    <input type="submit" class="btn btn-primary w-100" value="Book Now"></input>
                                 </form>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-        <?php else: ?>
-            <p>No avialable Room for now!</p>
-        <?php endif; ?>
-
-
-        <?php if (isset($availableRooms) && !empty($availableRooms)): ?>
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-4 col-sm-6 mb-4">
-                        <div class="card product-card">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="Product Image">
-                            <div class="card-body">
-                                <h5 class="card-title product-title">Product Name</h5>
-                                <p class="card-text">A brief description of the product goes here. It should be concise yet
-                                    informative.</p>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="product-price">$99.99</span>
-                                    <div class="rating">
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star"></i>
-                                        <i class="fas fa-star-half-alt"></i>
-                                        <span class="ms-1 text-muted">(4.5)</span>
-                                    </div>
-                                </div>
-                                <button class="btn btn-primary w-100">Add to Cart</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-        <?php else: ?>
-            <p>No avialable Room for now!</p>
-        <?php endif; ?>
-
+        </div>
+    <?php else: ?>
+        <p>No avialable Room for now!</p>
+    <?php endif; ?>
 </body>
 
 </html>

@@ -5,12 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Search</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -86,19 +82,80 @@
 
     <?php if (isset($availableRooms) && !empty($availableRooms)): ?>
         <div class="container py-5">
-            <h1 class="text-center mb-5">Our Latest Products</h1>
+            <h1 class="text-center mb-5">Available Rooms</h1>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php foreach ($availableRooms as $room): ?>
                     <div class="col">
                         <div class="card h-100">
-                            <img src="https://via.placeholder.com/500x200" class="card-img-top" alt="Product 1">
+                            <img src="<?= $room['ImageURLs'][0] ?>" class="card-img-top" alt="Product 1">
+                            <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                                </div>
+                                <div class="carousel-inner">
+
+                                    <?php foreach ($room['ImageURLs'] as $image): ?>
+                                        <div class="carousel-item active">
+                                            <img src="<?= $image ?>" class="d-block w-100" alt="...">
+                                        </div>
+                                    <?php endforeach; ?>
+
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div> -->
                             <div class="card-body">
-                                <h5 class="card-title"><?= $room['Name'][0] ?></h5>
-                                <p class="card-text"><?= $room['Inclusion'] ?></p>
+                                <p class="card-text">number of rooms: <?= count($room['Name']) ?></p>
+                                <h5 class="card-title"><?php
+                                                        foreach ($room['Name'] as $key => $name) {
+                                                            echo 'Room Name ' . ($key + 1) . ': ';
+                                                            echo $name . "<br>";
+                                                        }
+                                                        ?></h5>
+                                <p class="card-text">Inclusion: <?= $room['Inclusion'] ?></p>
                                 <p class="card-text">Total Fare: <?= $room['TotalFare'] ?></p>
-                                <form action="" method="post">
-                                    <input type="submit" class="btn btn-primary w-100" value="Book Now"></input>
-                                </form>
+                                <p class="card-text">TotalTax: <?= $room['TotalTax'] ?></p>
+                                <?php if (! empty($room['RoomPromotion'])): ?>
+                                    <p class="card-text">
+                                        <span>Room Promotion:</span>
+                                    <ul>
+                                        <?php
+                                        foreach ($room['RoomPromotion'] as $key => $promotion) {
+                                            echo '<li>';
+                                            echo 'Room ' . ($key + 1) . ': ';
+                                            echo $promotion . "<br>";
+                                            echo '</li>';
+                                        }
+                                        ?>
+
+                                    </ul>
+                                    </p>
+                                <?php endif; ?>
+
+                                <?php if (!empty($room['Supplements'])): ?>
+                                    <p class="card-text">
+                                        <span>Supplements:</span>
+                                        <?php foreach ($room['Supplements'] as $supplement): ?>
+                                            <?php foreach ($supplement as $supplementDetail): ?>
+                                                <br>Index: <?= $supplementDetail['Index'] ?>
+                                                <br>Type: <?= $supplementDetail['Type'] ?>
+                                                <br>Description: <?= $supplementDetail['Description'] ?>
+                                                <br>Price: <?= $supplementDetail['Price'] ?>
+                                                <br>Currency: <?= $supplementDetail['Currency'] ?>
+                                                <br>
+                                            <?php endforeach; ?>
+                                        <?php endforeach; ?>
+                                    </p>
+                                <?php endif; ?>
+
                             </div>
                         </div>
                     </div>
@@ -108,6 +165,7 @@
     <?php else: ?>
         <p>No avialable Room for now!</p>
     <?php endif; ?>
+
 </body>
 
 </html>

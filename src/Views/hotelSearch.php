@@ -32,7 +32,7 @@
         </form>
         <div id="hotelCardsContainer" class="row">
 
-            <?php if (!is_null($hotels)): ?>
+            <?php if (isset($hotels)): ?>
                 <?php foreach ($hotels as $hotel): ?>
                     <form action="/TBOHolidays_HotelAPI/AvailableHotelRooms" method="post" class="col-md-6 mb-3">
                         <input type="hidden" name="hotelId" value="<?php echo $hotel['HotelBookingCode']; ?>">

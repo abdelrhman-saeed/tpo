@@ -17,64 +17,6 @@
             /* max-width: 600px; */
             margin: 0 auto;
         }
-
-        .rooms_container {
-            border: 2px solid black;
-            padding: 2em;
-            width: 100%;
-            margin-bottom: 2em;
-            box-sizing: border-box;
-        }
-
-        .room {
-            border: 1px solid black;
-            padding: 1em;
-            margin-top: 1em;
-            box-sizing: border-box;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-        }
-
-        input[type="number"],
-        input[type="date"],
-        input[type="text"] {
-            width: 100%;
-            padding: 0.5em;
-            margin-bottom: 1em;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 0.5em 1em;
-            background-color: #007BFF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        input[type="submit"] {
-            padding: 0.5em 1em;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #218838;
-        }
-
-        .error {
-            color: red;
-            margin-bottom: 1em;
-        }
     </style>
 </head>
 
@@ -87,31 +29,11 @@
                 <?php foreach ($availableRooms as $room): ?>
                     <div class="col">
                         <div class="card h-100">
-                            <img src="<?= $room['ImageURLs'][0] ?>" class="card-img-top" alt="Product 1">
-                            <!-- <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                                <div class="carousel-indicators">
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                </div>
-                                <div class="carousel-inner">
-
-                                    <?php foreach ($room['ImageURLs'] as $image): ?>
-                                        <div class="carousel-item active">
-                                            <img src="<?= $image ?>" class="d-block w-100" alt="...">
-                                        </div>
-                                    <?php endforeach; ?>
-
-                                </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Previous</span>
-                                </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="visually-hidden">Next</span>
-                                </button>
-                            </div> -->
+                            <?php if (isset($room['ImageURLs'])): ?>
+                                <img src="<?= $room['ImageURLs'][0]; ?>" class="card-img-top" alt="Product 1">
+                            <?php else: ?>
+                                <img src="https://placehold.co/600x400?text=Hotel Placeholder" alt="Placehold" class="card-img-top">
+                            <?php endif; ?>
                             <div class="card-body">
                                 <p class="card-text">number of rooms: <?= count($room['Name']) ?></p>
                                 <h5 class="card-title"><?php

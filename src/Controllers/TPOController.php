@@ -57,7 +57,9 @@ class TPOController
             $incomingData['PaxRooms']
         );
 
-        $incomingData['PaxRooms'] = $paxRooms;
+        session_start();
+        $_SESSION['PaxRooms'] = $incomingData['PaxRooms'] = $paxRooms;
+
         $requestData = array_merge($requestData, $incomingData);
 
         $response = $this->client->request('POST', 'TBOHolidays_HotelAPI/HotelSearch', [
@@ -126,6 +128,10 @@ class TPOController
 
     public function hotelBookView()
     {
+        // echo "<pre>";
+        // session_start();
+        // print_r($_SESSION['PaxRooms']);
+        // exit;
         $bookingCode = $this->request->get('bookingCode');
         $totalFare   = $this->request->get('totalFare');
 
@@ -136,8 +142,8 @@ class TPOController
     {
         $requestData = [
             "BookingType"           => "Voucher", // Confirm/Voucher
-            "ClientReferenceId"     => "AAAQ92230706#AQ",
-            "BookingReferenceId"    => "AAAQ92230706#AQ",
+            "ClientReferenceId"     => $id = uniqid(),
+            "BookingReferenceId"    => $id,
             "PaymentMode"           => "Limit",
             "GuestNationality"      => "EG",
             "EmailId"               => "trav" . rand(0, 1000) . "@abc.com",
@@ -147,15 +153,40 @@ class TPOController
             'CustomerDetails'       => $this->request->get('CustomerDetails'),
         ];
 
-        // echo "<pre>";
-        // print_r($requestData); exit;
-
         $response = $this->client->request(
             'POST',
             '/TBOHolidays_HotelAPI/HotelBook',
             ['json' => $requestData]
         );
 
-        echo $response->getContent();
+       
+
+    $responseData = json_decode($response->getContent(), true);
+
+    if ($responseData['Status']['Code'] == 200) {
+        $newData = [
+            "ClientReferenceId" => $responseData['ClientReferenceId'],
+            "ConfirmationNumber" => $responseData['ConfirmationNumber']
+        ];
+
+        $filePath = __DIR__ . '/../assets/confirmation_numbers.json';
+
+        // Read existing data from the file
+        if (file_exists($filePath)) {
+            $fileContent = file_get_contents($filePath);
+            $existingData = json_decode($fileContent, true);
+        } else {
+            $existingData = [];
+        }
+
+        // Append new data
+        $existingData[] = $newData;
+
+        // Write updated data back to the file
+        file_put_contents($filePath, json_encode($existingData, JSON_PRETTY_PRINT));
+    }
+
+    
+
     }
 }

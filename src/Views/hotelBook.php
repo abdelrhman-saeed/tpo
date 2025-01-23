@@ -8,10 +8,13 @@
 
     <body>
         <div class="container mt-5">
+
             <h2 class="mb-4">Add Customer Data for Each Room</h2>
             
-            <?php $action = "/hotelBook/$bookingCode/$totalFare"; ?>
-            <form action="<?php echo $action; ?>" method="post" id="customerForm">
+            <form action="/hotelBook" method="post" id="customerForm">
+
+                <input type="hidden" value="<?= $bookingCode ?>" name="bookingCode">
+                <input type="hidden" value="<?= $totalFare ?>" name="totalFare">
 
                 <div id="roomData">
                     <div class="room-section mb-4">

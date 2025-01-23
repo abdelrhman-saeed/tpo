@@ -15,5 +15,5 @@ Route::post('TBOHolidays_HotelAPI/AvailableHotelRooms', [TPOController::class, '
 Route::get('TBOHolidays_HotelAPI/Prebook', [TPOController::class, 'preBookView']);
 Route::post('TBOHolidays_HotelAPI/Prebook', [TPOController::class, 'preBook']);
 
-Route::get('hotelBook/{bookingCode}/{totalFare}', [TPOController::class, 'hotelBookView']);
-Route::post('hotelBook/{bookingCode}/{totalFare}', [TPOController::class, 'hotelBook']);
+Route::get('hotelBook', [TPOController::class, 'hotelBookView']);
+Route::post('hotelBook', [TPOController::class, 'hotelBook']);

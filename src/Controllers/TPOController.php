@@ -103,8 +103,6 @@ class TPOController
             'json' => ['BookingCode' => $query]
         ]);
 
-        // echo $response->getContent();
-
         $content = $response->toArray();
 
         if (isset($content['HotelResult'])) {

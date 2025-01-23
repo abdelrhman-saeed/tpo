@@ -49,10 +49,16 @@
                                     </button>
                                 </div>
                             <?php else: ?>
-                                <img src="https://placehold.co/600x400?text=Hotel Placeholder" alt="Placehold" class="card-img-top">
+                                <img src="https://placehold.co/600x400?text=Room Placeholder" alt="Placehold" class="card-img-top">
                             <?php endif; ?>
                             <div class="card-body">
-                                <p class="card-text">Number of rooms: <?= count($room['Name']) ?></p>
+                                <div class="d-flex justify-content-between align-items-center mb-5">
+                                    <p class="card-text mb-0">Number of rooms: <?= count($room['Name']) ?></p>
+                                    <form action="TBOHolidays_HotelAPI/Prebook" method="post">
+                                        <input type="hidden" name="BookingCode" value="<?= $room['BookingCode'] ?>">
+                                        <input type="submit" class="btn btn-primary" value="BOOK"></input>
+                                    </form>
+                                </div>
                                 <?php foreach ($room['Name'] as $key => $name): ?>
                                     <h5 class="card-title">
                                         <span class="d-block">Room Name <?= ($key + 1) ?>: <?= $name ?></span>
@@ -62,14 +68,14 @@
                                 <p class="card-text">Total Fare: <?= $room['TotalFare'] ?></p>
                                 <p class="card-text">Total Tax: <?= $room['TotalTax'] ?></p>
                                 <?php if (!empty($room['RoomPromotion'])): ?>
-                                    <p class="card-text">
+                                    <div class="card-text">
                                         <span>Room Promotion:</span>
-                                    <ul>
-                                        <?php foreach ($room['RoomPromotion'] as $key => $promotion): ?>
-                                            <li>Room <?= ($key + 1) ?>: <?= $promotion ?></li>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                    </p>
+                                        <ul>
+                                            <?php foreach ($room['RoomPromotion'] as $key => $promotion): ?>
+                                                <li>Room <?= ($key + 1) ?>: <?= $promotion ?></li>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </div>
                                 <?php endif; ?>
                                 <?php if (!empty($room['Supplements'])): ?>
                                     <p class="card-text">

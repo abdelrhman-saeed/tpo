@@ -146,13 +146,10 @@ class TPOController
             "PhoneNumber"           => 201237374747
         ];
 
-        echo "<pre>";
+        $response = $this->client->request(
+            'POST', '/TBOHolidays_HotelAPI/HotelBook', ['json' => $requestData]
+        );
 
-        print_r($requestData);
-        // $response = $this->client->request(
-        //     'POST', '/TBOHolidays_HotelAPI/HotelBook', ['json' => $requestData]
-        // );
-
-        // echo $response->getContent();
+        echo $response->getContent();
     }
 }

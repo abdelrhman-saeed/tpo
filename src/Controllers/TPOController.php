@@ -159,35 +159,34 @@ class TPOController
             ['json' => $requestData]
         );
 
-       
 
-    $responseData = json_decode($response->getContent(), true);
 
-    if ($responseData['Status']['Code'] == 200) {
-        $newData = [
-            "ClientReferenceId" => $responseData['ClientReferenceId'],
-            "ConfirmationNumber" => $responseData['ConfirmationNumber']
-        ];
+        $responseData = json_decode($response->getContent(), true);
 
-        $filePath = __DIR__ . '/../assets/confirmation_numbers.json';
+        if ($responseData['Status']['Code'] == 200) {
+            $newData = [
+                "ClientReferenceId" => $responseData['ClientReferenceId'],
+                "ConfirmationNumber" => $responseData['ConfirmationNumber']
+            ];
 
-        // Read existing data from the file
-        if (file_exists($filePath)) {
-            $fileContent = file_get_contents($filePath);
-            $existingData = json_decode($fileContent, true);
-        } else {
-            $existingData = [];
+            $filePath = __DIR__ . '/../assets/confirmation_numbers.json';
+
+            // Read existing data from the file
+            if (file_exists($filePath)) {
+                $fileContent = file_get_contents($filePath);
+                $existingData = json_decode($fileContent, true);
+            } else {
+                $existingData = [];
+            }
+
+            // Append new data
+            $existingData[] = $newData;
+
+            // Write updated data back to the file
+            file_put_contents($filePath, json_encode($existingData, JSON_PRETTY_PRINT));
         }
 
-        // Append new data
-        $existingData[] = $newData;
-
-        // Write updated data back to the file
-        file_put_contents($filePath, json_encode($existingData, JSON_PRETTY_PRINT));
-    }
-
-    
-
+        header('Location: /confirmBookingList');
     }
 
 

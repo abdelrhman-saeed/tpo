@@ -9,8 +9,10 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-
 <body>
+
+    <?php require 'nav.php'; ?>
+
     <div class="container mt-5">
         <form action="/TBOHolidays_HotelAPI/HotelSearch" method="post" class="mb-3">
             <div class="form-group">

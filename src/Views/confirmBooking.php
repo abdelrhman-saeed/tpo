@@ -7,6 +7,7 @@
 </header>
 
 <body>
+    <?php require 'nav.php'; ?>
     <div class="container">
         <h2 class="text-center font-weight-bold">Confirmation Numbers</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">

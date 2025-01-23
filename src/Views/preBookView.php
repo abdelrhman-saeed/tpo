@@ -2,23 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php require 'header.php'; ?>
     <title>Hotel Search</title>
-    <link href="https://fonts.googleapis.com/css?family=Bentham|Playfair+Display|Raleway:400,500|Suranna|Trocchi" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
 <style>
-    /* 
-* Design by Robert Mayer:https://goo.gl/CJ7yC8
-*
-*I intentionally left out the line that was supposed to be below the subheader simply because I don't like how it looks.
-*
-* Chronicle Display Roman font was substituted for similar fonts from Google Fonts.
-*/
-
     body {
         background-color: #fdf1ec;
         font-family: 'Raleway', sans-serif;
@@ -113,6 +101,7 @@
 </style>
 
 <body>
+    <?php require 'nav.php'; ?>
     <div class="wrapper">
         <div class="product-img">
             <img src="https://i.postimg.cc/W30ZbJym/product-img.png" alt="Product Image">
@@ -162,6 +151,7 @@
         <?php endif; ?>
     </div>
 
+    <?php require 'js.php'; ?>
 </body>
 
 </html>

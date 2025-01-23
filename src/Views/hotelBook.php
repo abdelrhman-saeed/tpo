@@ -10,7 +10,7 @@
         <div class="container mt-5">
             <h2 class="mb-4">Add Customer Data for Each Room</h2>
             
-            <?php $action = "/hotelBook/$BookingCode/$TotalFare"; ?>
+            <?php $action = "/hotelBook/$bookingCode/$totalFare"; ?>
             <form action="<?php echo $action; ?>" method="post" id="customerForm">
 
                 <div id="roomData">

@@ -54,7 +54,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between align-items-center mb-5">
                                     <p class="card-text mb-0">Number of rooms: <?= count($room['Name']) ?></p>
-                                    <form action="TBOHolidays_HotelAPI/Prebook" method="post">
+                                    <form action="Prebook" method="post">
                                         <input type="hidden" name="BookingCode" value="<?= $room['BookingCode'] ?>">
                                         <input type="submit" class="btn btn-primary" value="BOOK"></input>
                                     </form>

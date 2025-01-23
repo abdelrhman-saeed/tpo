@@ -132,10 +132,12 @@
                             <strong>Total Fare:</strong> <?php echo $room['TotalFare']; ?><br>
                             <strong>Total Tax:</strong> <?php echo $room['TotalTax']; ?><br>
                             <strong>Meal Type:</strong> <?php echo $room['MealType']; ?><br>
-                            <strong>Amenities:</strong>
-                            <?php foreach ($room['Amenities'] as $amen): ?>
-                                <span class="badge rounded-pill bg-info text-dark"><?php echo $amen; ?></span>
-                            <?php endforeach; ?>
+                            <?php if (!empty($room['Amenities'])): ?>
+                                <strong>Amenities:</strong>
+                                <?php foreach ($room['Amenities'] as $amen): ?>
+                                    <span class="badge rounded-pill bg-info text-dark"><?php echo $amen; ?></span>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         <?php endforeach; ?>
                     </p>
 

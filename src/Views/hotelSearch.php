@@ -7,13 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Search</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #addRoom:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
     <?php require 'nav.php'; ?>
 
-    <div class="container mt-5">
+    <div class="container mt-5 w-25">
         <form action="/TBOHolidays_HotelAPI/HotelSearch" method="post" class="mb-3">
             <div class="form-group">
                 <label for="checkIn">Check-In Date</label>
@@ -27,11 +33,15 @@
                 <label for="rooms_number">Number of Rooms</label>
                 <input type="number" class="form-control" id="rooms_number" name="rooms_number" min="1" required>
             </div>
-            <button id="addRoom" type="button" class="btn btn-primary">Add Room</button>
             <div class="rooms mt-3"></div>
             <div class="error text-danger mb-3" id="error_message"></div>
+            <a id="addRoom" class=" btn-sm" style="text-decoration: none;">Add Room</a>
+
             <input type="submit" class="btn btn-success" value="Submit">
         </form>
+
+    </div>
+    <div class="container mt-5 w-50">
         <div id="hotelCardsContainer" class="row">
 
             <?php if (isset($hotels)): ?>

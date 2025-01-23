@@ -145,9 +145,10 @@
                 <div class="product-price-btn">
                     <p>Total: <?php echo $prebook[0]['Rooms'][0]['TotalFare'] + $prebook[0]['Rooms'][0]['TotalTax']; ?>$</p>
 
-                    <form action="/hotelBook?bookingCode=<?php echo $prebook[0]['Rooms'][0]['BookingCode']; ?>&totalFare=<?php echo $prebook[0]['Rooms'][0]['TotalFare'] + $prebook[0]['Rooms'][0]['TotalTax']; ?>" method="post">
-                        <input type="submit" value="Book Now"></input>
-                    </form>
+                    <form action="/hotelBook" method="post">
+                        <input type="hidden" name="bookingCode" value="<?php echo $prebook[0]['Rooms'][0]['BookingCode']; ?>">
+                        <input type="hidden" name="totalFare" value="<?php echo $prebook[0]['Rooms'][0]['TotalFare'] + $prebook[0]['Rooms'][0]['TotalTax']; ?>">
+                        <input type="submit" value="Book Now">
                     </form>
                 </div>
             </div>

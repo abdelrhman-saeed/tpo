@@ -103,8 +103,6 @@ class TPOController
             'json' => ['BookingCode' => $query]
         ]);
 
-        // echo $response->getContent();
-
         $content = $response->toArray();
 
         if (isset($content['HotelResult'])) {
@@ -150,7 +148,9 @@ class TPOController
         ];
 
         $response = $this->client->request(
-            'POST', '/TBOHolidays_HotelAPI/HotelBook', ['json' => $requestData]
+            'POST',
+            '/TBOHolidays_HotelAPI/HotelBook',
+            ['json' => $requestData]
         );
 
         echo $response->getContent();

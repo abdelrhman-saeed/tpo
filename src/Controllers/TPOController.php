@@ -125,4 +125,34 @@ class TPOController
     {
         require __DIR__ . '/../Views/preBookView.php';
     }
+
+    public function hotelBookView(int $BookingCode, int $TotalFare)
+    {
+        require __DIR__ . '/../Views/hotelBook.php';
+    }
+
+    public function hotelBook(int $BookingCode, int $TotalFare)
+    {
+        $requestData = [
+            'BookingCode'           => $BookingCode,
+            'TotalFare'             => $TotalFare,
+            'CustomerDetails'       => $this->request->get('CustomerDetails'),
+            "BookingType"           => "Voucher", // Confirm/Voucher
+            "ClientReferenceId"     => $id = uniqid(),
+            "BookingReferenceId"    => $id,
+            "PaymentMode"           => "Limit",
+            "GuestNationality"      => "EG",
+            "EmailId"               => "trav" . rand(0, 1000) . "@abc.com",
+            "PhoneNumber"           => 201237374747
+        ];
+
+        echo "<pre>";
+
+        print_r($requestData);
+        // $response = $this->client->request(
+        //     'POST', '/TBOHolidays_HotelAPI/HotelBook', ['json' => $requestData]
+        // );
+
+        // echo $response->getContent();
+    }
 }

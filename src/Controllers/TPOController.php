@@ -135,17 +135,20 @@ class TPOController
     public function hotelBook()
     {
         $requestData = [
-            'BookingCode'           => $this->request->get('bookingCode'),
-            'TotalFare'             => $this->request->get('totalFare'),
-            'CustomerDetails'       => $this->request->get('CustomerDetails'),
             "BookingType"           => "Voucher", // Confirm/Voucher
-            "ClientReferenceId"     => $id = uniqid(),
-            "BookingReferenceId"    => $id,
+            "ClientReferenceId"     => "AAAQ92230706#AQ",
+            "BookingReferenceId"    => "AAAQ92230706#AQ",
             "PaymentMode"           => "Limit",
             "GuestNationality"      => "EG",
             "EmailId"               => "trav" . rand(0, 1000) . "@abc.com",
-            "PhoneNumber"           => 201237374747
+            "PhoneNumber"           => 201237374747,
+            'BookingCode'           => $this->request->get('bookingCode'),
+            'TotalFare'             => $this->request->get('totalFare'),
+            'CustomerDetails'       => $this->request->get('CustomerDetails'),
         ];
+
+        // echo "<pre>";
+        // print_r($requestData); exit;
 
         $response = $this->client->request(
             'POST',

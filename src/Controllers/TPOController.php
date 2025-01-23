@@ -126,16 +126,19 @@ class TPOController
         require __DIR__ . '/../Views/preBookView.php';
     }
 
-    public function hotelBookView(int $bookingCode, int $totalFare)
+    public function hotelBookView()
     {
+        $bookingCode = $this->request->get('bookingCode');
+        $totalFare   = $this->request->get('totalFare');
+
         require __DIR__ . '/../Views/hotelBook.php';
     }
 
-    public function hotelBook(int $bookingCode, int $totalFare)
+    public function hotelBook()
     {
         $requestData = [
-            'BookingCode'           => $bookingCode,
-            'TotalFare'             => $totalFare,
+            'BookingCode'           => $this->request->get('bookingCode'),
+            'TotalFare'             => $this->request->get('totalFare'),
             'CustomerDetails'       => $this->request->get('CustomerDetails'),
             "BookingType"           => "Voucher", // Confirm/Voucher
             "ClientReferenceId"     => $id = uniqid(),

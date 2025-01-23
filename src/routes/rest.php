@@ -17,3 +17,6 @@ Route::post('TBOHolidays_HotelAPI/Prebook', [TPOController::class, 'preBook']);
 
 Route::get('hotelBook', [TPOController::class, 'hotelBookView']);
 Route::post('hotelBook', [TPOController::class, 'hotelBook']);
+
+Route::get('confirmBookingList', [TPOController::class, 'confirmBookingView']);
+Route::post('cancelConfirm', [TPOController::class, 'cancelConfirm']);

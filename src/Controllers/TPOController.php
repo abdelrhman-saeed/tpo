@@ -155,4 +155,36 @@ class TPOController
 
         echo $response->getContent();
     }
+
+
+    public function confirmBookingView()
+    {
+        $conNums = json_decode(
+            file_get_contents(__DIR__ . '/../assets/confirmation_numbers.json'),
+            true
+        );
+        require __DIR__ . '/../Views/confirmBooking.php';
+    }
+
+    public function cancelConfirm()
+    {
+        $conNums = json_decode(
+            file_get_contents(__DIR__ . '/../assets/confirmation_numbers.json'),
+            true
+        );
+
+        $confirmNum = $this->request->get('confirmNum');
+
+        $conNums = array_filter(
+            $conNums,
+            fn($conNum) => $conNum['ConfirmationNumber'] !== $confirmNum
+        );
+
+        file_put_contents(
+            __DIR__ . '/../assets/confirmation_numbers.json',
+            json_encode($conNums)
+        );
+
+        header('Location: /confirmBookingList');
+    }
 }

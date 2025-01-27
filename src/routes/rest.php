@@ -1,6 +1,7 @@
 <?php
 
 use AbdelrhmanSaeed\Route\API\Route;
+use AbdelrhmanSaeed\Tpo\Controllers\AuthController;
 use AbdelrhmanSaeed\Tpo\Controllers\TPOController;
 
 
@@ -20,3 +21,7 @@ Route::post('hotelBook', [TPOController::class, 'hotelBook']);
 
 Route::get('confirmBookingList', [TPOController::class, 'confirmBookingView']);
 Route::post('cancelConfirm', [TPOController::class, 'cancelConfirm']);
+
+// authentication routes
+Route::get('register', [AuthController::class, 'registerView']);
+Route::post('register', [AuthController::class, 'register']);

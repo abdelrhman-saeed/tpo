@@ -21,10 +21,10 @@ $config = ORMSetup::createAttributeMetadataConfiguration(
 );
 
 $connection = DriverManager::getConnection([
-    'driver'    => 'pdo_mysql',
-    'user'      => 'root',
-    'password'  => '',
-    'dbname'    => 'echoes',
+    'driver'    => $_ENV['DB_DRIVER'],
+    'user'      => $_ENV['DB_USER'],
+    'password'  => $_ENV['DB_PASSWORD'],
+    'dbname'    => $_ENV['DB_NAME'],
 ], $config);
 
 // obtaining the entity manager

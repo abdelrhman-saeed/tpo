@@ -220,4 +220,9 @@ class TPOController
 
         header('Location: /confirmBookingList');
     }
+
+    public function firebaseView()
+    {
+        require __DIR__ . '/../Views/firebaseView.php';
+    }
 }

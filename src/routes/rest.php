@@ -25,3 +25,4 @@ Route::post('cancelConfirm', [TPOController::class, 'cancelConfirm']);
 // authentication routes
 Route::get('register', [AuthController::class, 'registerView']);
 Route::post('register', [AuthController::class, 'register']);
+Route::get('firebase', [TPOController::class, 'firebaseView']);

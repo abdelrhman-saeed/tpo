@@ -2,12 +2,12 @@
 <html lang="en">
 
 <header>
-    <?php require 'header.php'; ?>
+    <?php require 'layout/header.php'; ?>
     <Title>Hotel Book</Title>
 </header>
 
 <body>
-    <?php require 'nav.php'; ?>
+    <?php require 'layout/nav.php'; ?>
     <div class="container mt-5">
 
         <h2 class="mb-4">Add Customer Data for Each Room</h2>

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace AbdelrhmanSaeed\Tpo\Controllers;
 
 use AbdelrhmanSaeed\Tpo\Services\Singleton;
@@ -9,7 +11,6 @@ use AbdelrhmanSaeed\Tpo\DTO\UserDTO;
 use AbdelrhmanSaeed\Tpo\Database\Entities\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
 
 class AuthController
 {

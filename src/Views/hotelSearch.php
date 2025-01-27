@@ -17,7 +17,7 @@
 
 <body>
 
-    <?php require 'nav.php'; ?>
+    <?php require 'layout/nav.php'; ?>
 
     <div class="container mt-5 w-25">
         <form action="/TBOHolidays_HotelAPI/HotelSearch" method="post" class="mb-3">

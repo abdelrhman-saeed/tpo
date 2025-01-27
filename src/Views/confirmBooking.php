@@ -2,12 +2,12 @@
 <html lang="en">
 
 <header>
-    <?php require 'header.php'; ?>
+    <?php require 'layout/header.php'; ?>
     <Title>Hotel Book</Title>
 </header>
 
 <body>
-    <?php require 'nav.php'; ?>
+    <?php require 'layout/nav.php'; ?>
     <div class="container">
         <h2 class="text-center font-weight-bold">Confirmation Numbers</h2>
         <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">

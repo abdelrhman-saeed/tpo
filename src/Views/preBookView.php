@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php require 'header.php'; ?>
+    <?php require 'layout/header.php'; ?>
     <title>Hotel Search</title>
 </head>
 
@@ -101,7 +101,7 @@
 </style>
 
 <body>
-    <?php require 'nav.php'; ?>
+    <?php require 'layout/nav.php'; ?>
     <div class="wrapper">
         <div class="product-img">
             <img src="https://i.postimg.cc/W30ZbJym/product-img.png" alt="Product Image">

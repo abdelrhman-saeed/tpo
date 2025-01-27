@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+
+use Dotenv\Dotenv;
+use AbdelrhmanSaeed\Tpo\Services\Singleton;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Console\ConsoleRunner;
+use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
+
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+// Load environment variables
+Dotenv::createImmutable(__DIR__ . '/../')->load();
+
+// Load the database configuration
+require_once __DIR__ . '/../src/Database/bootstrap.php';
+
+$entityManager  = Singleton::getInstance(EntityManager::class);
+$commands       = [
+    // If you want to add your own custom console commands,
+    // you can do so here.
+];
+
+ConsoleRunner::run(
+    new SingleManagerProvider($entityManager),
+    $commands
+);

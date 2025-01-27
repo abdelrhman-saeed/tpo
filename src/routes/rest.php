@@ -22,7 +22,11 @@ Route::post('hotelBook', [TPOController::class, 'hotelBook']);
 Route::get('confirmBookingList', [TPOController::class, 'confirmBookingView']);
 Route::post('cancelConfirm', [TPOController::class, 'cancelConfirm']);
 
+Route::get('firebase', [TPOController::class, 'firebaseView']);
+
 // authentication routes
 Route::get('register', [AuthController::class, 'registerView']);
+Route::get('login', [AuthController::class, 'loginView']);
+
 Route::post('register', [AuthController::class, 'register']);
-Route::get('firebase', [TPOController::class, 'firebaseView']);
+Route::post('login', [AuthController::class, 'login']);

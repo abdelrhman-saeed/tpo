@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <?php require 'header.php'; ?>
+    <?php require 'layout/header.php'; ?>
     <title>Hotel Search</title>
     <style>
         body {
@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <?php require 'nav.php'; ?>
+    <?php require 'layout/nav.php'; ?>
     <?php if (isset($availableRooms) && !empty($availableRooms)): ?>
         <div class="container py-5">
             <h1 class="text-center mb-5">Available Rooms</h1>

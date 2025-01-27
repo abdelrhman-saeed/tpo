@@ -21,27 +21,44 @@ class AuthController
 
     public function register()
     {
-        $request = Request::createFromGlobals();
+        try {
+            $request = Request::createFromGlobals();
 
-        if (! UserDTO::validate($request->request->all()))
-        {
-            session_start();
-            $_SESSION['registeration_errors'] = UserDTO::getErrors();
+            if (! UserDTO::validate($request->request->all())) {
+                session_start();
+                $_SESSION['registeration_errors'] = UserDTO::getErrors();
 
-            (new RedirectResponse('/register'))->send();
-            return;
+                (new RedirectResponse('/register'))->send();
+                return;
+            }
+
+            $em = Singleton::getInstance(EntityManager::class);
+
+            // Check if the email already exists
+            $existingUser = $em->getRepository(User::class)
+                ->findOneBy(['email' => $request->get('email')]);
+
+            if ($existingUser) {
+                (new JsonResponse(['message' => 'Email already exists!'], 409))->send();
+                return;
+            }
+
+            $user = User::create(UserDTO::getValidated());
+
+            $user->setPassword(
+                password_hash(
+                    $user->getPassword(),
+                    PASSWORD_BCRYPT
+                )
+            );
+
+            $em->persist($user);
+            $em->flush();
+
+            (new JsonResponse(['message' => 'Registration successful!'], 201))->send();
+        } catch (\Exception $e) {
+            (new JsonResponse(['message' => 'An error occurred during registration.', 'error' => $e->getMessage()], 500))->send();
         }
-
-        $user = User::create(UserDTO::getValidated());
-
-        $user->setPassword(
-            password_hash($user->getPassword(),
-            PASSWORD_BCRYPT)
-        );
-
-        $em = Singleton::getInstance(EntityManager::class);
-        $em->persist($user);
-        $em->flush();
     }
 
     public function loginView()
@@ -51,23 +68,29 @@ class AuthController
 
     public function login()
     {
-        $request    = Request::createFromGlobals();
-        $em         = Singleton::getInstance(EntityManager::class);
+        try {
+            $request    = Request::createFromGlobals();
+            $em         = Singleton::getInstance(EntityManager::class);
 
-        $user       = $em->getRepository(User::class)
-                        ->findOneBy(['email' => $request->get('email')]);
+            $user       = $em->getRepository(User::class)
+                ->findOneBy(['email' => $request->get('email')]);
 
-        if (! $user || ! password_verify($request->get('password'), $user->getPassword()))
-        {
-            (new JsonResponse(['message' => 'Invalid email or password!'], 401))
-                ->send();
+            if (! $user || ! password_verify($request->get('password'), $user->getPassword())) {
+                (new JsonResponse(['message' => 'Invalid email or password!'], 401))
+                    ->send();
 
-            return;
+                return;
+            }
+
+            // Convert the object to array and remove the password
+            $userData = $user->toArray();
+
+            (new JsonResponse([
+                'message'   => 'Logged in successfully!',
+                'data'      => $userData
+            ], 200))->send();
+        } catch (\Exception $e) {
+            (new JsonResponse(['message' => 'An error occurred during login.', 'error' => $e->getMessage()], 500))->send();
         }
-
-        (new JsonResponse([
-            'message'   => 'Logged in successfully!',
-            'data'      => (array) $user ], 200))->send();
     }
-
 }

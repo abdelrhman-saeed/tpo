@@ -20,3 +20,5 @@ Route::post('hotelBook', [TPOController::class, 'hotelBook']);
 
 Route::get('confirmBookingList', [TPOController::class, 'confirmBookingView']);
 Route::post('cancelConfirm', [TPOController::class, 'cancelConfirm']);
+
+Route::get('firebase', [TPOController::class, 'firebaseView']);

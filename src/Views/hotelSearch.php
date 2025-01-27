@@ -48,8 +48,7 @@
                 <?php foreach ($hotels as $hotel): ?>
                     <form action="/TBOHolidays_HotelAPI/AvailableHotelRooms" method="post" class="col-md-6 mb-3">
                         <input type="hidden" name="hotelId" value="<?php echo $hotel['HotelBookingCode']; ?>">
-                        <button type="submit" class="btn btn-primary mb-2">View Rooms</button>
-                        <div class="card">
+                        <div class="card pl-3">
                             <div class="card-body">
                                 <h5 class="card-title"><?php echo $hotel['HotelInfo']['HotelName']; ?></h5>
                                 <img src="<?php echo $hotel['HotelInfo']['HotelPicture']; ?>" class="img-fluid hotel-image" alt="Responsive image">
@@ -62,6 +61,7 @@
                                 <p class="card-text">Currency: <?php echo $hotel['MinHotelPrice']['Currency']; ?></p>
                                 <p class="card-text">Original price: <?php echo $hotel['MinHotelPrice']['OriginalPrice']; ?></p>
                             </div>
+                            <button type="submit" class="btn btn-primary mb-2 w-25">View Rooms</button>
                         </div>
                     </form>
                 <?php endforeach; ?>

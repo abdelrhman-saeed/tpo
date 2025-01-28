@@ -10,7 +10,6 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class TPOController
 {
     private Request $request;
-    private Response $response;
     private HttpClientInterface $client;
 
     private array $availableRooms = [];
@@ -19,7 +18,6 @@ class TPOController
     public function __construct()
     {
         $this->request = Request::createFromGlobals();
-        $this->response = new Response();
         $this->client = HttpClient::createForBaseUri('http://api.tbotechnology.in/', [
             'auth_basic' => ['Africanqueen', 'Afr@15739396'],
         ]);

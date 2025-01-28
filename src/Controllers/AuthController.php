@@ -4,16 +4,24 @@ declare(strict_types=1);
 
 namespace AbdelrhmanSaeed\Tpo\Controllers;
 
-use AbdelrhmanSaeed\Tpo\Services\Singleton;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\{Request, Response};
 use AbdelrhmanSaeed\Tpo\DTO\UserDTO;
+use AbdelrhmanSaeed\Tpo\Services\Singleton;
+use Symfony\Component\HttpClient\HttpClient;
 use AbdelrhmanSaeed\Tpo\Database\Entities\User;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\{Request, Response};
 
 class AuthController
 {
+    private HttpClientInterface $client;
+
+    public function __construct()
+    {
+        $this->client = HttpClient::createForBaseUri('https://echoes-travel-default-rtdb.firebaseio.com/login.json');
+    }
     public function registerView()
     {
         require __DIR__ . '/../Views/Auth/register.php';
@@ -69,26 +77,51 @@ class AuthController
     public function login()
     {
         try {
-            $request    = Request::createFromGlobals();
-            $em         = Singleton::getInstance(EntityManager::class);
+            $request = Request::createFromGlobals();
+            $data = json_decode($request->getContent(), true);
 
-            $user       = $em->getRepository(User::class)
-                ->findOneBy(['email' => $request->get('email')]);
+            if (!isset($data['email'], $data['password'])) {
+                (new JsonResponse(['message' => 'Invalid request data!'], 400))->send();
+                return;
+            }
 
-            if (! $user || ! password_verify($request->get('password'), $user->getPassword())) {
-                (new JsonResponse(['message' => 'Invalid email or password!'], 401))
-                    ->send();
+            $em = Singleton::getInstance(EntityManager::class);
 
+            $user = $em->getRepository(User::class)->findOneBy(['email' => $data['email']]);
+
+            if (!$user || !password_verify($data['password'], $user->getPassword())) {
+                $response = $this->client->request('POST', '', [
+                    'json' => [
+                        'message' => 'Invalid email or password!',
+                    ],
+                ]);
+
+                (new JsonResponse(['message' => 'Invalid email or password!'], 401))->send();
                 return;
             }
 
             // Convert the object to array and remove the password
             $userData = $user->toArray();
 
+            $response = $this->client->request('POST', '', [
+                'json' => [
+                    'email' => $user->getEmail(),
+                    'name' => $user->getName(),
+                    'phone' => $user->getPhone(),
+                    'creditLimit' => $user->getCreditLimit(),
+                ],
+            ]);
+
             (new JsonResponse([
-                'message'   => 'Logged in successfully!',
-                'data'      => $userData
+                'message' => 'Logged in successfully!',
+                'data' => $userData,
             ], 200))->send();
+
+
+            if ($response->getStatusCode() !== 200) {
+                (new JsonResponse(['message' => 'Failed to notify external service.'], 500))->send();
+                return;
+            }
         } catch (\Exception $e) {
             (new JsonResponse(['message' => 'An error occurred during login.', 'error' => $e->getMessage()], 500))->send();
         }

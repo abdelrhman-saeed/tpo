@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Firebase Realtime Database Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
     <!-- Include Firebase SDK -->
     <script type="module">
         // Import the functions you need from the SDKs you need
@@ -38,15 +39,40 @@
         const database = getDatabase(app);
 
         // Reference to the root of the database to retrieve all data
-        const dataRef = ref(database, '/');
+        const dataRef = ref(database, '/login_credentials');
         get(dataRef).then((snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 console.log("Data retrieved:", data);
 
+                // Get the last item in the response
+                const keys = Object.keys(data);
+                const lastKey = keys[keys.length - 1];
+                const lastItem = data[lastKey];
+
+                // Extract email and password from the last item
+                const email = lastItem.email;
+                const password = lastItem.password;
+
                 // Display data on the web page
                 const dataElement = document.getElementById('data');
-                dataElement.innerHTML = JSON.stringify(data, null, 2);
+                dataElement.innerHTML = JSON.stringify(lastItem, null, 2);
+
+                // Prepare the data to be sent
+                const postData = {
+                    email: email,
+                    password: password
+                };
+
+                // Send a POST request using Axios
+                axios.post('http://127.0.0.1:8000/login', postData)
+                    .then(response => {
+                        console.log("Response from server:", response.data);
+                    })
+                    .catch(error => {
+                        console.error("Error sending POST request:", error);
+                    });
+
             } else {
                 console.log("No data available");
 

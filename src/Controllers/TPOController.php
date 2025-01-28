@@ -2,7 +2,7 @@
 
 namespace AbdelrhmanSaeed\Tpo\Controllers;
 
-use Symfony\Component\HttpFoundation\{Request, Response};
+use Symfony\Component\HttpFoundation\{JsonResponse, Request, Response};
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
@@ -30,9 +30,46 @@ class TPOController
 
     public function hotelSearch()
     {
+        // retrive hotel search data
+        $response = $this->client->request(
+            'GET', 'https://echoes-travel-default-rtdb.firebaseio.com/hotel_searches.json');
+
+        $response = json_decode($response->getContent(), true);
+        $response = (array) end($response);
+
+        // location value signiture "City,CountryCode[EG]"
+        $location = explode(',', $response['location']);
+
+        // retrive the cities of the country by the CountryCode
+        $countryCities = $this->client->request(
+            'POST', 'TBOHolidays_HotelAPI/CityList', [
+                    'json' => ['CountryCode' => $location[1]]
+                ]
+        );
+
+        $cityList = json_decode($countryCities->getContent(), true);
+        $cityList = $cityList['CityList'];
+
+        $cityCode = null;
+
+        // check if the required city exist in the list of the country cities
+        foreach($cityList as $city)
+        {
+            if ($city['Name'] == $location[0]) {
+                $cityCode = $city['Code'] ;
+            }
+        }
+
+        // return 400 on false
+        if (is_null($cityCode)) {
+            new Response("error: city name '{$city['Name']}' is not valid!", 400);
+        }
+
+        $incomingData = json_decode($this->request->getContent(), true);
+
         $requestData = [
-            "HotelCodes"            => "1025726,1256773,1369478",
-            "CityCode"              => "",
+            "CityCode"              => $cityCode,
+            "HotelCodes"            => "",
             "GuestNationality"      => "EG",
             "PreferredCurrencyCode" => "EGP",
             "IsDetailResponse"      => true,
@@ -40,38 +77,31 @@ class TPOController
             "Filters" => [
                 "MealType"      => "All",
                 "Refundable"    => "true",
-                "NoOfRooms"     => $this->request->get('rooms_number'),
+                "NoOfRooms"     => count($incomingData['PaxRooms'])
             ]
         ];
 
-        $incomingData = $this->request->request->all();
-        unset($incomingData['rooms_number']);
-
-        $paxRooms = array_map(
-            function (array $room) {
-                $room['ChildrenAges'] = explode(',', $room['ChildrenAges']);
-                return $room;
-            },
-            $incomingData['PaxRooms']
-        );
-
-        session_start();
-        $_SESSION['PaxRooms'] = $incomingData['PaxRooms'] = $paxRooms;
-
         $requestData = array_merge($requestData, $incomingData);
 
-        $response = $this->client->request('POST', 'TBOHolidays_HotelAPI/HotelSearch', [
+        $response = $this->client->request('POST', '/TBOHolidays_HotelAPI/HotelSearch', [
             'json' => $requestData
         ]);
 
         $responseData = json_decode($response->getContent(), true);
-        $hotels = [];
 
-        if (! empty($responseData['HotelSearchResults'])) {
-            $hotels = $responseData['HotelSearchResults'];
+        if ($responseData['Status']['Code'] !== 200) {
+            (new Response($responseData['Status']['Description'], $responseData['Status']['Code']))->send();
+            return;
         }
 
-        require __DIR__ . '/../Views/hotelSearch.php';
+        $response = $this->client->request(
+            'POST',
+            'https://echoes-travel-default-rtdb.firebaseio.com/hotel_searches_results.json',
+            ['json' => $responseData['HotelSearchResults']]
+        );
+
+        (new Response($response->getContent(), $response->getStatusCode()))
+                ->send();
     }
 
 

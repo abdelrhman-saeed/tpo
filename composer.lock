@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7dc0612c95c3bf787b04450733e56a0b",
+    "content-hash": "f92031d065e233579d54c0231ebca66a",
     "packages": [
         {
             "name": "abdelrhman-saeed/route",
-            "version": "v3",
+            "version": "v3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/abdelrhman-saeed/route.git",
-                "reference": "0d46a396901c8887e172aea329a6a94087e1dd93"
+                "reference": "bb21395d93821bb081307130fa03f777a9540a7c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/abdelrhman-saeed/route/zipball/0d46a396901c8887e172aea329a6a94087e1dd93",
-                "reference": "0d46a396901c8887e172aea329a6a94087e1dd93",
+                "url": "https://api.github.com/repos/abdelrhman-saeed/route/zipball/bb21395d93821bb081307130fa03f777a9540a7c",
+                "reference": "bb21395d93821bb081307130fa03f777a9540a7c",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "issues": "https://github.com/abdelrhman-saeed/route/issues",
                 "source": "https://github.com/abdelrhman-saeed/route"
             },
-            "time": "2025-01-25T22:13:28+00:00"
+            "time": "2025-01-28T22:33:03+00:00"
         },
         {
             "name": "doctrine/collections",

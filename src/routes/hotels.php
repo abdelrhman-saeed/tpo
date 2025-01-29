@@ -24,7 +24,7 @@ use AbdelrhmanSaeed\Tpo\Controllers\TPOController;
 
 // Route::get('firebase', [TPOController::class, 'firebaseView']);
 
-
+Route::get('testfirebase', [TPOController::class, 'testfirebase']);
 
 Route::setController(HotelSearchController::class)
         ->group(function ()
